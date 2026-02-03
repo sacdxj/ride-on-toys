@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "博客文章"
+    label_singular: "文章"
+    folder: "content/blog"
+    path: "{{slug}}"
+    media_folder: ""
+    public_folder: ""
+    create: true
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", picker_utc: true}
+      - {label: "作者", name: "author", widget: "string", default: "FunRide 团队"}
+      - {label: "分类", name: "category", widget: "select", options: ["安全指南", "育儿知识", "产品指南", "环保理念", "产品推荐", "公司动态"]}
+      - {label: "摘要", name: "excerpt", widget: "text", hint: "文章摘要，显示在博客列表页"}
+      - {label: "特色图片", name: "image", widget: "image", required: false, hint: "建议尺寸：1200x600"}
+      - {label: "内容", name: "body", widget: "markdown"}
+      - {label: "SEO描述", name: "description", widget: "text", required: false, hint: "用于SEO的页面描述"}
+      - {label: "标签", name: "tags", widget: "list", field: {widget: "string"}, required: false}

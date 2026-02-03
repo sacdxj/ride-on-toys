@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY - Premium Ride-On Toys</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --electric-orange: #FF3D00;
+            --deep-obsidian: #0A0A0F;
+            --chrome-silver: #E8E8E8;
+            --neon-cyan: #00F5FF;
+            --warning-yellow: #FFD600;
+            --velocity-red: #DC143C;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--deep-obsidian);
+            color: var(--chrome-silver);
+            overflow-x: hidden;
+        }
+
+        /* Dynamic speed line background */
+        .speed-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255, 61, 0, 0.03) 100px,
+                    rgba(255, 61, 0, 0.03) 200px
+                );
+            animation: speedLines 20s linear infinite;
+        }
+
+        @keyframes speedLines {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(200px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background: linear-gradient(180deg, rgba(10, 10, 15, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.3em;
+            color: var(--chrome-silver);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--electric-orange), var(--neon-cyan));
+            transform: skewX(-20deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--chrome-silver);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.85rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--electric-orange);
+            transition: width 0.3s ease;
+            transform: skewX(-20deg);
+        }
+
+        .nav-links a:hover {
+            color: var(--electric-orange);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--electric-orange);
+            color: var(--deep-obsidian);
+            padding: 0.9rem 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        }
+
+        .cta-button:hover {
+            background: var(--neon-cyan);
+            transform: translateX(5px);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 5% 4rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: 0.9;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--chrome-silver) 0%, var(--electric-orange) 50%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(80px);
+        }
+
+        @keyframes heroReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tagline {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--chrome-silver);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeUp 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tagline strong {
+            font-weight: 800;
+            color: var(--electric-orange);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 4rem;
+            opacity: 0;
+            animation: fadeUp 1s 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: var(--neon-cyan);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(232, 232, 232, 0.6);
+            margin-top: 0.5rem;
+        }
+
+        /* Decorative elements */
+        .hero-decoration {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 61, 0, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            top: 20%;
+            right: -10%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .gear-decoration {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px solid rgba(0, 245, 255, 0.1);
+            border-radius: 50%;
+            bottom: 10%;
+            left: 5%;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Products Section */
+        .products {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 5rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '//';
+            color: var(--electric-orange);
+            margin-right: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: rgba(232, 232, 232, 0.6);
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 61, 0, 0.2);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 61, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--electric-orange);
+            box-shadow: 0 20px 60px rgba(255, 61, 0, 0.2);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--electric-orange);
+            color: var(--deep-obsidian);
+            padding: 0.4rem 1rem;
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transform: skewX(-15deg);
+        }
+
+        .product-icon {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .product-icon::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .product-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: var(--chrome-silver);
+        }
+
+        .product-description {
+            color: rgba(232, 232, 232, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-specs {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec {
+            text-align: center;
+        }
+
+        .spec-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+        }
+
+        .spec-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(232, 232, 232, 0.5);
+        }
+
+        .product-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--electric-orange);
+            letter-spacing: 0.05em;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 61, 0, 0.05) 50%, transparent 100%);
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            padding: 3rem 2rem;
+            position: relative;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-left-color: var(--electric-orange);
+            background: linear-gradient(90deg, rgba(255, 61, 0, 0.05) 0%, transparent 100%);
+        }
+
+        .feature-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--electric-orange);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .feature-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--chrome-silver);
+        }
+
+        .feature-description {
+            color: rgba(232, 232, 232, 0.7);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: rgba(232, 232, 232, 0.7);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .primary-cta {
+            background: var(--electric-orange);
+            color: var(--deep-obsidian);
+            padding: 1.2rem 3rem;
+            font-weight: 800;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
+        }
+
+        .primary-cta:hover {
+            background: var(--neon-cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.4);
+        }
+
+        .secondary-cta {
+            background: transparent;
+            color: var(--chrome-silver);
+            padding: 1.2rem 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border: 2px solid var(--chrome-silver);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
+        }
+
+        .secondary-cta:hover {
+            background: var(--chrome-silver);
+            color: var(--deep-obsidian);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5%;
+            border-top: 1px solid rgba(255, 61, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.2em;
+            color: var(--chrome-silver);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: rgba(232, 232, 232, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--electric-orange);
+        }
+
+        .copyright {
+            color: rgba(232, 232, 232, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 5% 3rem;
+                text-align: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="speed-lines"></div>
+
+    <nav>
+        <a href="#" class="logo">VELOCITY</a>
+        <ul class="nav-links">
+            <li><a href="#products">Models</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="cta-button">Shop Now</button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-decoration"></div>
+        <div class="gear-decoration"></div>
+        <div class="hero-content">
+            <h1>UNLEASH<br>THE THRILL</h1>
+            <p class="hero-tagline">
+                Premium ride-on toys engineered for <strong>adrenaline</strong>, designed for <strong>legendary</strong> childhood memories.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years Excellence</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50K</div>
+                    <div class="stat-label">Happy Riders</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Safety Certified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="section-header scroll-reveal">
+            <h2 class="section-title">OUR FLEET</h2>
+            <p class="section-subtitle">
+                Each model precision-crafted with premium materials, advanced safety features, and unlimited adventure potential.
+            </p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card scroll-reveal">
+                <div class="product-badge">BESTSELLER</div>
+                <div class="product-icon">🏎️</div>
+                <h3 class="product-name">TURBO RACER X1</h3>
+                <p class="product-description">
+                    Formula 1 inspired design with realistic engine sounds, working LED headlights, and premium leather seats.
+                </p>
+                <div class="product-specs">
+                    <div class="spec">
+                        <div class="spec-value">5 MPH</div>
+                        <div class="spec-label">Max Speed</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">3-7</div>
+                        <div class="spec-label">Years</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">2HR</div>
+                        <div class="spec-label">Battery</div>
+                    </div>
+                </div>
+                <div class="product-price">$399.99</div>
+            </div>
+
+            <div class="product-card scroll-reveal">
+                <div class="product-badge">NEW</div>
+                <div class="product-icon">🚙</div>
+                <h3 class="product-name">OFF-ROADER PRO</h3>
+                <p class="product-description">
+                    All-terrain beast with rugged tires, suspension system, and parent-controlled speed modes.
+                </p>
+                <div class="product-specs">
+                    <div class="spec">
+                        <div class="spec-value">6 MPH</div>
+                        <div class="spec-label">Max Speed</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">4-8</div>
+                        <div class="spec-label">Years</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">3HR</div>
+                        <div class="spec-label">Battery</div>
+                    </div>
+                </div>
+                <div class="product-price">$549.99</div>
+            </div>
+
+            <div class="product-card scroll-reveal">
+                <div class="product-badge">PREMIUM</div>
+                <div class="product-icon">🏍️</div>
+                <h3 class="product-name">MOTO BLAZE</h3>
+                <p class="product-description">
+                    Two-wheeled freedom with training wheels option, authentic throttle response, and chrome exhaust details.
+                </p>
+                <div class="product-specs">
+                    <div class="spec">
+                        <div class="spec-value">4 MPH</div>
+                        <div class="spec-label">Max Speed</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">3-6</div>
+                        <div class="spec-label">Years</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">2.5HR</div>
+                        <div class="spec-label">Battery</div>
+                    </div>
+                </div>
+                <div class="product-price">$349.99</div>
+            </div>
+
+            <div class="product-card scroll-reveal">
+                <div class="product-icon">🚜</div>
+                <h3 class="product-name">TRUCK COMMANDER</h3>
+                <p class="product-description">
+                    Monster truck style with oversized wheels, working dump bed, and MP3 player connectivity.
+                </p>
+                <div class="product-specs">
+                    <div class="spec">
+                        <div class="spec-value">5.5 MPH</div>
+                        <div class="spec-label">Max Speed</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">4-9</div>
+                        <div class="spec-label">Years</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">2HR</div>
+                        <div class="spec-label">Battery</div>
+                    </div>
+                </div>
+                <div class="product-price">$479.99</div>
+            </div>
+
+            <div class="product-card scroll-reveal">
+                <div class="product-badge">CLASSIC</div>
+                <div class="product-icon">🚗</div>
+                <h3 class="product-name">VINTAGE CRUISER</h3>
+                <p class="product-description">
+                    Retro styling meets modern tech with wooden dashboard details, chrome accents, and nostalgic design.
+                </p>
+                <div class="product-specs">
+                    <div class="spec">
+                        <div class="spec-value">4.5 MPH</div>
+                        <div class="spec-label">Max Speed</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">3-7</div>
+                        <div class="spec-label">Years</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">2HR</div>
+                        <div class="spec-label">Battery</div>
+                    </div>
+                </div>
+                <div class="product-price">$429.99</div>
+            </div>
+
+            <div class="product-card scroll-reveal">
+                <div class="product-badge">LUXURY</div>
+                <div class="product-icon">🚘</div>
+                <h3 class="product-name">GT LEGEND</h3>
+                <p class="product-description">
+                    Premium sports car replica with gull-wing doors, premium sound system, and smartphone app control.
+                </p>
+                <div class="product-specs">
+                    <div class="spec">
+                        <div class="spec-value">7 MPH</div>
+                        <div class="spec-label">Max Speed</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">5-10</div>
+                        <div class="spec-label">Years</div>
+                    </div>
+                    <div class="spec">
+                        <div class="spec-value">4HR</div>
+                        <div class="spec-label">Battery</div>
+                    </div>
+                </div>
+                <div class="product-price">$799.99</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header scroll-reveal">
+            <h2 class="section-title">ENGINEERED EXCELLENCE</h2>
+            <p class="section-subtitle">
+                Built to exceed expectations. Every detail matters, every ride counts.
+            </p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card scroll-reveal">
+                <div class="feature-number">01</div>
+                <h3 class="feature-title">PREMIUM MATERIALS</h3>
+                <p class="feature-description">
+                    Aviation-grade aluminum, scratch-resistant polymers, and upholstery that rivals luxury vehicles.
+                </p>
+            </div>
+            <div class="feature-card scroll-reveal">
+                <div class="feature-number">02</div>
+                <h3 class="feature-title">SAVETY CERTIFIED</h3>
+                <p class="feature-description">
+                    Exceeds all ASTM F963 and EN71 safety standards. Parental remote control and speed governors included.
+                </p>
+            </div>
+            <div class="feature-card scroll-reveal">
+                <div class="feature-number">03</div>
+                <h3 class="feature-title">ADVANCED TECH</h3>
+                <p class="feature-description">
+                    Smart battery management, Bluetooth connectivity, and app-based monitoring for complete control.
+                </p>
+            </div>
+            <div class="feature-card scroll-reveal">
+                <div class="feature-number">04</div>
+                <h3 class="feature-title">LIFETIME SUPPORT</h3>
+                <p class="feature-description">
+                    Dedicated support team, spare parts availability, and comprehensive warranty coverage.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="hero-decoration" style="top: 30%; left: 50%; transform: translateX(-50%);"></div>
+        <div class="cta-content scroll-reveal">
+            <h2 class="cta-title">READY TO<br>IGNITE ADVENTURE?</h2>
+            <p class="cta-text">
+                Join thousands of families who've discovered the perfect blend of excitement, quality, and unforgettable memories.
+            </p>
+            <div class="cta-buttons">
+                <button class="primary-cta">Explore Collection</button>
+                <button class="secondary-cta">Download Catalog</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">VELOCITY</div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="copyright">© 2025 Velocity Ride-On Toys. All rights reserved.</div>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+
+        const revealOnScroll = () => {
+            scrollRevealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Product card interactions
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
