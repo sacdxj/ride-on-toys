@@ -11,7 +11,7 @@ export default function HomePage() {
       description: '仿真的跑车设计，配备LED灯、音乐播放器和可调节座椅，带给孩子们真实的驾驶体验。',
       price: 899,
       ageRange: '3-6岁',
-      imageSrc: 'https://placehold.co/600x400?text=Sports+Car',
+      imageSrc: '/images/products/sports-car.jpg',
       badge: '热销',
     },
     {
@@ -20,7 +20,7 @@ export default function HomePage() {
       description: '帮助儿童学习平衡和协调能力的理想选择，坚固耐用，安全可靠。',
       price: 599,
       ageRange: '2-5岁',
-      imageSrc: 'https://placehold.co/600x400?text=Motorcycle',
+      imageSrc: '/images/products/motorcycle.jpg',
       badge: '新品',
     },
     {
@@ -29,7 +29,7 @@ export default function HomePage() {
       description: '农场主题设计，带有拖车功能，让孩子们体验农场生活的乐趣。',
       price: 799,
       ageRange: '4-8岁',
-      imageSrc: 'https://placehold.co/600x400?text=Tractor',
+      imageSrc: '/images/products/tractor.jpg',
     },
   ];
 
@@ -89,7 +89,7 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <Image
-                src="https://placehold.co/800x600?text=Happy+Kid+on+Ride+Toy"
+                src="/images/hero/happy-kids.jpg"
                 alt="快乐的孩子玩乘骑玩具"
                 width={800}
                 height={600}
