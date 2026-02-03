@@ -14,7 +14,7 @@ export default function ProductsPage() {
       description: '仿真的跑车设计，配备LED灯、音乐播放器和可调节座椅，带给孩子们真实的驾驶体验。',
       price: 899,
       ageRange: '3-6岁',
-      imageSrc: '/images/products/sports-car.jpg',
+      imageSrc: 'https://raw.githubusercontent.com/sacdxj/ride-on-toys/main/public/images/products/sports-car.jpg',
       badge: '热销',
     },
     {
@@ -23,7 +23,7 @@ export default function ProductsPage() {
       description: '帮助儿童学习平衡和协调能力的理想选择，坚固耐用，安全可靠。',
       price: 599,
       ageRange: '2-5岁',
-      imageSrc: '/images/products/motorcycle.jpg',
+      imageSrc: 'https://raw.githubusercontent.com/sacdxj/ride-on-toys/main/public/images/products/motorcycle.jpg',
       badge: '新品',
     },
     {
@@ -32,7 +32,7 @@ export default function ProductsPage() {
       description: '农场主题设计，带有拖车功能，让孩子们体验农场生活的乐趣。',
       price: 799,
       ageRange: '4-8岁',
-      imageSrc: '/images/products/tractor.jpg',
+      imageSrc: 'https://raw.githubusercontent.com/sacdxj/ride-on-toys/main/public/images/products/tractor.jpg',
     },
     {
       id: 'jeep',
@@ -49,7 +49,7 @@ export default function ProductsPage() {
       description: '仿真警车设计，带有警灯、警报器和麦克风，让孩子们体验当警察的乐趣。',
       price: 999,
       ageRange: '3-7岁',
-      imageSrc: '/images/products/police-car.jpg',
+      imageSrc: 'https://raw.githubusercontent.com/sacdxj/ride-on-toys/main/public/images/products/police-car.jpg',
     },
     {
       id: 'bus',

@@ -88,7 +88,7 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <img
-                src="/images/hero/happy-kids.jpg"
+                src="https://raw.githubusercontent.com/sacdxj/ride-on-toys/main/public/images/hero/happy-kids.jpg"
                 alt="快乐的孩子玩乘骑玩具"
                 className="w-full rounded-2xl shadow-2xl"
               />
