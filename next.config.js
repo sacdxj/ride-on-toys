@@ -2,8 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  output: 'standalone',
   images: {
     domains: ['placehold.co'],
+    unoptimized: true,
   },
   typescript: {
     ignoreBuildErrors: true,
