@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import BlogCard from '@/components/BlogCard';
@@ -88,12 +87,10 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative">
-              <Image
+              <img
                 src="/images/hero/happy-kids.jpg"
                 alt="快乐的孩子玩乘骑玩具"
-                width={800}
-                height={600}
-                className="rounded-2xl shadow-2xl"
+                className="w-full rounded-2xl shadow-2xl"
               />
             </div>
           </div>

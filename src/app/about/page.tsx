@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: '关于我们',
@@ -43,12 +42,10 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="relative">
-              <Image
+              <img
                 src="https://placehold.co/600x500?text=Our+Story"
                 alt="我们的故事"
-                width={600}
-                height={500}
-                className="rounded-2xl shadow-xl"
+                className="w-full rounded-2xl shadow-xl"
               />
             </div>
           </div>

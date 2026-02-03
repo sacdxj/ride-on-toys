@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface BlogCardProps {
@@ -16,11 +15,9 @@ const BlogCard = ({ slug, title, excerpt, date, author, imageSrc, category }: Bl
     <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <Link href={`/blog/${slug}`}>
         <div className="relative">
-          <Image
+          <img
             src={imageSrc}
             alt={title}
-            width={600}
-            height={400}
             className="w-full h-48 object-cover"
           />
           {category && (
