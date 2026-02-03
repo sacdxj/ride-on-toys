@@ -9,6 +9,7 @@
 # Next.js
 /.next/
 /out/
+/next-env.d.ts
 
 # Production
 /build
@@ -31,7 +32,6 @@ yarn-error.log*
 
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
 # IDE
 .vscode/
@@ -43,5 +43,8 @@ next-env.d.ts
 # OS
 Thumbs.db
 
-# Decap CMS
-/cms/.netlify
+# Claude
+.claude/
+
+# Build cache
+.turbo/

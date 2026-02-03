@@ -2,8 +2,11 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "public/images/uploads"
-public_folder: "/images/uploads"
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+site_url: https://funridetoys.com
+display_url: https://funridetoys.com
 
 collections:
   - name: "blog"

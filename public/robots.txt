@@ -1,0 +1,10 @@
+# FunRide Toys Robots.txt
+
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+
+Sitemap: https://funridetoys.com/sitemap.xml

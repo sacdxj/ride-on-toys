@@ -236,7 +236,7 @@ export default function ContactPage() {
                     {faq.q}
                   </h3>
                   <span className="text-2xl text-gray-400 group-open:text-primary-orange transition-colors duration-200">
-                    {isOpen => (isOpen ? '−' : '+')}
+                    +
                   </span>
                 </summary>
                 <p className="mt-4 text-gray-600">{faq.a}</p>
